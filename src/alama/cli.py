@@ -56,8 +56,12 @@ def main(argv: list[str] | None = None) -> int:
             w.writerow([probe.sample_id, gallery.sample_id, int(same), f"{score:.6g}"])
 
     report = evaluate(
-        genuine, impostor, dataset=args.dataset_name, matcher=matcher.name,
-        n_subjects=len({s.subject_id for s in samples}), notes=args.notes,
+        genuine,
+        impostor,
+        dataset=args.dataset_name,
+        matcher=matcher.name,
+        n_subjects=len({s.subject_id for s in samples}),
+        notes=args.notes,
     )
     (args.out / "report.json").write_text(report.to_json())
     (args.out / "report.md").write_text(report.to_markdown())

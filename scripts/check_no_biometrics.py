@@ -12,12 +12,39 @@ from pathlib import PurePosixPath
 
 BLOCKED_SUFFIXES = {
     # images
-    ".png", ".jpg", ".jpeg", ".bmp", ".tif", ".tiff", ".gif", ".webp", ".heic",
-    ".heif", ".dng", ".raw", ".pgm", ".ppm", ".pnm", ".jp2", ".wsq",
+    ".png",
+    ".jpg",
+    ".jpeg",
+    ".bmp",
+    ".tif",
+    ".tiff",
+    ".gif",
+    ".webp",
+    ".heic",
+    ".heif",
+    ".dng",
+    ".raw",
+    ".pgm",
+    ".ppm",
+    ".pnm",
+    ".jp2",
+    ".wsq",
     # templates / minutiae
-    ".xyt", ".min", ".ist", ".fmr", ".iso", ".ansi", ".cbor", ".template",
+    ".xyt",
+    ".min",
+    ".ist",
+    ".fmr",
+    ".iso",
+    ".ansi",
+    ".cbor",
+    ".template",
     # array dumps
-    ".npy", ".npz", ".pkl", ".pickle", ".h5", ".hdf5",
+    ".npy",
+    ".npz",
+    ".pkl",
+    ".pickle",
+    ".h5",
+    ".hdf5",
 }
 ALLOWED = {"data/README.md"}
 

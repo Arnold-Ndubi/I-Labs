@@ -95,8 +95,9 @@ def _bifurcation_angle(skeleton, y, x, length) -> float:
         s = -np.sum(dirs, axis=0)
         return _angle(s[0], s[1])
     # The stem is the branch pointing most away from the others.
-    sims = [sum(float(dirs[i] @ dirs[j]) for j in range(len(dirs)) if j != i)
-            for i in range(len(dirs))]
+    sims = [
+        sum(float(dirs[i] @ dirs[j]) for j in range(len(dirs)) if j != i) for i in range(len(dirs))
+    ]
     stem = dirs[int(np.argmin(sims))]
     return _angle(-stem[0], -stem[1])
 
@@ -112,9 +113,7 @@ def detect_minutiae(
 
     if mask is None:
         mask = np.ones_like(skeleton)
-    dist = cv2.distanceTransform(
-        np.pad(mask.astype(np.uint8), 1), cv2.DIST_L2, 5
-    )[1:-1, 1:-1]
+    dist = cv2.distanceTransform(np.pad(mask.astype(np.uint8), 1), cv2.DIST_L2, 5)[1:-1, 1:-1]
 
     found: list[Minutia] = []
     for kind, value in ((MinutiaType.ENDING, 1), (MinutiaType.BIFURCATION, 3)):
@@ -143,9 +142,7 @@ def _drop_close_pairs(minutiae: list[Minutia], min_distance: float) -> list[Minu
     return [m for m, k in zip(minutiae, keep, strict=True) if k]
 
 
-def extract_template(
-    enhanced: EnhancedPrint, cfg: MinutiaeConfig = MinutiaeConfig()
-) -> Template:
+def extract_template(enhanced: EnhancedPrint, cfg: MinutiaeConfig = MinutiaeConfig()) -> Template:
     """Minutiae template from the enhancement stage output."""
     minutiae = detect_minutiae(
         enhanced.skeleton, enhanced.mask, cfg, quality_map=enhanced.extras.get("coherence")

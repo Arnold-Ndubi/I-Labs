@@ -43,8 +43,11 @@ def test_frr_at_far_respects_target():
 def test_report_skips_unmeasurable_fars_and_states_sample_sizes(tmp_path):
     rng = np.random.default_rng(3)
     report = evaluate(
-        rng.normal(3, 1, 50), rng.normal(0, 1, 500),
-        dataset="synthetic", matcher="test", n_subjects=5,
+        rng.normal(3, 1, 50),
+        rng.normal(0, 1, 500),
+        dataset="synthetic",
+        matcher="test",
+        n_subjects=5,
     )
     assert report.n_genuine == 50 and report.n_impostor == 500
     assert [op.target_far for op in report.operating_points] == [1e-2]

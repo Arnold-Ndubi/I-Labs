@@ -86,12 +86,12 @@ class EvaluationReport:
             "|---|---|---|---|",
         ]
         for op in self.operating_points:
-            lines.append(
-                f"| {op.target_far:g} | {op.far:.4%} | {op.frr:.2%} | {op.threshold:g} |"
-            )
+            lines.append(f"| {op.target_far:g} | {op.far:.4%} | {op.frr:.2%} | {op.threshold:g} |")
         for far in self.skipped_fars:
-            lines.append(f"| {far:g} | not measurable: needs >= {int(np.ceil(3 / far))} "
-                         "impostor comparisons | | |")
+            lines.append(
+                f"| {far:g} | not measurable: needs >= {int(np.ceil(3 / far))} "
+                "impostor comparisons | | |"
+            )
         if self.notes:
             lines += ["", self.notes]
         return "\n".join(lines) + "\n"
@@ -117,9 +117,16 @@ def evaluate(
         frr, far, t = frr_at_far(genuine, impostor, target)
         ops.append(OperatingPoint(target, far, frr, t))
     return EvaluationReport(
-        dataset=dataset, matcher=matcher, n_subjects=n_subjects,
-        n_genuine=len(genuine), n_impostor=len(impostor),
-        eer=eer, eer_threshold=eer_t, operating_points=ops, skipped_fars=skipped, notes=notes,
+        dataset=dataset,
+        matcher=matcher,
+        n_subjects=n_subjects,
+        n_genuine=len(genuine),
+        n_impostor=len(impostor),
+        eer=eer,
+        eer_threshold=eer_t,
+        operating_points=ops,
+        skipped_fars=skipped,
+        notes=notes,
     )
 
 
@@ -137,8 +144,14 @@ def plot_curves(genuine, impostor, out_dir: str | Path, title: str) -> list[Path
 
     fig, ax = plt.subplots(figsize=(5, 5))
     ax.plot(far, 1 - frr)
-    ax.set(xscale="log", xlabel="False accept rate", ylabel="True accept rate",
-           title=f"ROC — {title}", xlim=(1e-5, 1), ylim=(0, 1))
+    ax.set(
+        xscale="log",
+        xlabel="False accept rate",
+        ylabel="True accept rate",
+        title=f"ROC — {title}",
+        xlim=(1e-5, 1),
+        ylim=(0, 1),
+    )
     ax.grid(True, which="both", alpha=0.3)
     roc = out_dir / "roc.svg"
     fig.savefig(roc, bbox_inches="tight")

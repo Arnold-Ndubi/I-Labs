@@ -181,8 +181,13 @@ def normalise_scale(
     norm = normalise(gray, mask)
     block = int(max(32, 2.5 * search_max_wavelength))
     wl = ridge_wavelength(
-        norm, mask, block=block, min_wavelength=3.0,
-        max_wavelength=search_max_wavelength, min_coverage=0.6, fft_size=256,
+        norm,
+        mask,
+        block=block,
+        min_wavelength=3.0,
+        max_wavelength=search_max_wavelength,
+        min_coverage=0.6,
+        fft_size=256,
     )
     if not np.isfinite(wl):
         return gray, mask, 1.0

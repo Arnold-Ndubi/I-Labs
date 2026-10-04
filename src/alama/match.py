@@ -69,10 +69,13 @@ class BaselineMatcher:
         ax, ay = a[ia, 0], a[ia, 1]
         tx = b[ib, 0] - (c * ax + s * ay)
         ty = b[ib, 1] - (-s * ax + c * ay)
-        keys = np.column_stack([
-            np.round(rot / self.angle_bin), np.round(tx / self.shift_bin),
-            np.round(ty / self.shift_bin),
-        ]).astype(int)
+        keys = np.column_stack(
+            [
+                np.round(rot / self.angle_bin),
+                np.round(tx / self.shift_bin),
+                np.round(ty / self.shift_bin),
+            ]
+        ).astype(int)
         uniq, inverse, counts = np.unique(keys, axis=0, return_inverse=True, return_counts=True)
         inverse = inverse.ravel()
 
@@ -148,13 +151,18 @@ class SourceAfisMatcher:
             g.write_bytes(to_iso19794_2(gallery))
             out = subprocess.run(
                 [self.java, "-jar", self.jar, "match-iso", str(p), str(g)],
-                capture_output=True, text=True, check=True,
+                capture_output=True,
+                text=True,
+                check=True,
             )
         return float(out.stdout.strip())
 
 
-MATCHERS = {"baseline": BaselineMatcher, "bozorth3": Bozorth3Matcher,
-            "sourceafis": SourceAfisMatcher}
+MATCHERS = {
+    "baseline": BaselineMatcher,
+    "bozorth3": Bozorth3Matcher,
+    "sourceafis": SourceAfisMatcher,
+}
 
 
 def get_matcher(name: str) -> Matcher:

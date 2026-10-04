@@ -10,12 +10,12 @@ Coordinate conventions (used everywhere in alama):
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum
 
 import numpy as np
 
 
-class MinutiaType(str, Enum):
+class MinutiaType(StrEnum):
     ENDING = "ending"
     BIFURCATION = "bifurcation"
     OTHER = "other"
@@ -47,9 +47,7 @@ class Template:
         codes = {MinutiaType.ENDING: 0, MinutiaType.BIFURCATION: 1, MinutiaType.OTHER: 2}
         if not self.minutiae:
             return np.zeros((0, 4), dtype=float)
-        return np.array(
-            [[m.x, m.y, m.angle, codes[m.kind]] for m in self.minutiae], dtype=float
-        )
+        return np.array([[m.x, m.y, m.angle, codes[m.kind]] for m in self.minutiae], dtype=float)
 
 
 @dataclass

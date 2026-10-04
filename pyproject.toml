@@ -9,7 +9,7 @@ description = "Feasibility experiment: matching phone-camera finger photos again
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "Proprietary" }
-# Licences checked for commercial use — see LICENSES.md before adding anything.
+# Licences checked for commercial use â€” see LICENSES.md before adding anything.
 dependencies = [
     "numpy>=1.26",            # BSD-3-Clause
     "opencv-python-headless>=4.9",  # Apache-2.0
@@ -49,3 +49,12 @@ target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP", "NPY"]
+
+[tool.ruff.lint.flake8-bugbear]
+# Frozen config dataclasses are immutable, so they are safe as argument defaults.
+extend-immutable-calls = [
+    "alama.enhance.EnhanceConfig",
+    "alama.minutiae.MinutiaeConfig",
+    "alama.pipeline.PipelineConfig",
+    "alama.segment.SegmentConfig",
+]

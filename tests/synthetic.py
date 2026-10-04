@@ -5,9 +5,7 @@ from __future__ import annotations
 import numpy as np
 
 
-def stripes(
-    shape=(256, 256), wavelength=9.0, theta=0.0, noise=0.0, seed=0
-) -> np.ndarray:
+def stripes(shape=(256, 256), wavelength=9.0, theta=0.0, noise=0.0, seed=0) -> np.ndarray:
     """uint8 image of straight dark ridges running in direction theta (pixel coords, y down)."""
     h, w = shape
     yy, xx = np.mgrid[0:h, 0:w].astype(float)

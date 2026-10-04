@@ -29,8 +29,9 @@ def to_iso19794_2(
     minutiae = template.minutiae[:255]
     res = round(template.dpi / 2.54)  # pixels per cm
     body = bytearray()
-    body += struct.pack(">BBBB", finger_position, impression_type & 0x0F, finger_quality,
-                        len(minutiae))
+    body += struct.pack(
+        ">BBBB", finger_position, impression_type & 0x0F, finger_quality, len(minutiae)
+    )
     for m in minutiae:
         x = min(max(int(round(m.x)), 0), 0x3FFF)
         y = min(max(int(round(m.y)), 0), 0x3FFF)
@@ -41,16 +42,20 @@ def to_iso19794_2(
     body += struct.pack(">H", 0)  # extended data block length
 
     header_len = 24
-    header = b"FMR\x00" + b" 20\x00" + struct.pack(
-        ">IHHHHHBB",
-        header_len + len(body),
-        0,  # capture equipment compliance (4 bits) + id (12 bits): unspecified
-        template.width,
-        template.height,
-        res,
-        res,
-        1,  # number of finger views
-        0,  # reserved
+    header = (
+        b"FMR\x00"
+        + b" 20\x00"
+        + struct.pack(
+            ">IHHHHHBB",
+            header_len + len(body),
+            0,  # capture equipment compliance (4 bits) + id (12 bits): unspecified
+            template.width,
+            template.height,
+            res,
+            res,
+            1,  # number of finger views
+            0,  # reserved
+        )
     )
     return header + bytes(body)
 

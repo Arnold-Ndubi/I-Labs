@@ -14,11 +14,15 @@ def random_template(n=40, seed=0) -> Template:
         [
             Minutia(float(x), float(y), float(a), kinds[k])
             for x, y, a, k in zip(
-                rng.uniform(20, 280, n), rng.uniform(20, 280, n),
-                rng.uniform(0, 2 * math.pi, n), rng.integers(0, 2, n), strict=True,
+                rng.uniform(20, 280, n),
+                rng.uniform(20, 280, n),
+                rng.uniform(0, 2 * math.pi, n),
+                rng.integers(0, 2, n),
+                strict=True,
             )
         ],
-        width=300, height=300,
+        width=300,
+        height=300,
     )
 
 
