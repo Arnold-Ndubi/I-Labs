@@ -1,0 +1,51 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "alama"
+version = "0.1.0"
+description = "Feasibility experiment: matching phone-camera finger photos against contact-scanner fingerprints."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Proprietary" }
+# Licences checked for commercial use — see LICENSES.md before adding anything.
+dependencies = [
+    "numpy>=1.26",            # BSD-3-Clause
+    "opencv-python-headless>=4.9",  # Apache-2.0
+    "scikit-image>=0.22",     # BSD-3-Clause
+    "scipy>=1.11",            # BSD-3-Clause
+    "matplotlib>=3.8",        # PSF-style (matplotlib licence), commercial OK
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",              # MIT
+    "pytest-cov>=5",          # MIT
+    "ruff>=0.6",              # MIT
+    "pre-commit>=3.7",        # MIT
+    "nbstripout>=0.7",        # MIT
+    "jupyterlab>=4",          # BSD-3-Clause
+]
+
+[project.scripts]
+alama-eval = "alama.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/alama"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "tests"]
+addopts = "-ra"
+markers = [
+    "nbis: needs NIST NBIS binaries (mindtct, bozorth3) on PATH",
+    "sourceafis: needs Java and the SourceAFIS CLI jar",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "NPY"]

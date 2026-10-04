@@ -1,0 +1,98 @@
+# ---------------------------------------------------------------------------
+# BIOMETRIC DATA — NEVER COMMIT
+# Fingerprint images, scans and templates are sensitive personal data under
+# Kenya's Data Protection Act 2019. Keep them in data/ (ignored) only.
+# ---------------------------------------------------------------------------
+data/*
+!data/README.md
+
+# Raster / camera / scanner image formats (anywhere in the repo).
+# Plots go in results/ as .svg or .pdf so they can still be committed.
+*.png
+*.PNG
+*.jpg
+*.JPG
+*.jpeg
+*.JPEG
+*.bmp
+*.BMP
+*.tif
+*.tiff
+*.TIF
+*.TIFF
+*.gif
+*.webp
+*.heic
+*.HEIC
+*.heif
+*.dng
+*.DNG
+*.raw
+*.pgm
+*.ppm
+*.pnm
+*.jp2
+*.wsq
+*.WSQ
+
+# Fingerprint templates and minutiae files
+*.xyt
+*.min
+*.ist
+*.fmr
+*.iso
+*.ansi
+*.cbor
+*.template
+
+# Array / pickle dumps can hold images or templates
+*.npy
+*.npz
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+
+# Results: keep metrics (json/csv/md) and vector plots; ignore everything else
+results/*
+!results/README.md
+!results/**/
+!results/**/*.json
+!results/**/*.csv
+!results/**/*.md
+!results/**/*.svg
+!results/**/*.pdf
+
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Native matcher binaries / downloads (installed separately, see README)
+tools/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Java build output
+target/
